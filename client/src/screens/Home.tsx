@@ -1,7 +1,7 @@
 import JobList from "../components/JobList";
-import styles from "../styles/screens/App.module.scss";
+import styles from "../styles/screens/Home.module.scss";
 
-const App = () => {
+const Home = () => {
   return (
     <main className={styles.container}>
       <header className={styles.header}>
@@ -12,4 +12,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default Home;
