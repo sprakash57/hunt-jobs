@@ -1,0 +1,38 @@
+.card {
+    background: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2px;
+    box-shadow: 1px 2px 5px 2px hsla(0, 0%, 0%, 0.1);
+    width: 384px;
+    min-height: 230px;
+    margin: 0 1rem 0.8rem;
+    h4 {
+        margin: 0;
+        font-weight: 600;
+    }
+    summary {
+        margin: 1rem 0 0.5rem;
+    }
+}
+.card__title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    > h2 {
+        margin: 0.5rem 0 0;
+    }
+}
+.card__location {
+    display: flex;
+    margin-bottom: 0.8rem;
+    span {
+        margin-right: 0.2rem;
+        margin-left: -0.3rem;
+    }
+    small {
+        font-weight: 600;
+    }
+}
+.card__date {
+    font-weight: 600;
+}

@@ -5,4 +5,10 @@
     min-width: 80px;
     background: var(--green);
     color: var(--white);
+    cursor: pointer;
+    &:disabled {
+        background: var(--green-disabled);
+        color: var(--white-disabled);
+        cursor: not-allowed;
+    }
 }

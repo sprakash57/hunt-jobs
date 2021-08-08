@@ -1,0 +1,18 @@
+.tag {
+    margin: 0;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.7rem;
+    border-radius: 20px;
+}
+.tag--color-blue {
+    border: 1px solid var(--blue);
+    color: var(--blue);
+}
+.tag--color-orange {
+    border: 1px solid var(--orange);
+    color: var(--orange);
+}
+.tag--color-violet {
+    border: 1px solid var(--violet);
+    color: var(--violet);
+}

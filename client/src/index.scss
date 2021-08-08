@@ -1,7 +1,12 @@
 :root {
-  --white: white;
-  --black: black;
+  --white: hsl(0, 0%, 100%);
+  --white-disabled: hsl(0, 2%, 63%);
+  --black: hsl(0, 0%, 0%);
   --green: hsl(120, 74%, 38%);
+  --green-disabled: hsl(120, 35%, 26%);
+  --blue: hsl(198, 100%, 50%);
+  --violet: hsl(300, 76%, 72%);
+  --orange: hsl(39, 100%, 50%);
 }
 html,
 body {
