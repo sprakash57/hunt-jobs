@@ -13,7 +13,8 @@ const Job = () => {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae adipisci assumenda veniam?.
             </summary>
             <section className={styles.card__location}>
-                <span><img src={Pin} alt="Location" /></span><small>Location</small>
+                <span><img src={Pin} alt="Location" /></span>
+                <small>Location</small>
             </section>
             <section>
                 <small className={styles.card__date}>1 Jan 2019</small>

@@ -8,9 +8,9 @@ type Props = {
 
 const Tag = ({ label, color = "blue" }: Props) => {
     return (
-        <p className={clx(styles.tag, styles[`tag--color-${color}`])}>
+        <span className={clx(styles.tag, styles[`tag--color-${color}`])}>
             {label}
-        </p>
+        </span>
     )
 }
 
