@@ -1,0 +1,1 @@
+export const clx = (...args: any[]) => args.filter(arg => !!arg).join(" ");
