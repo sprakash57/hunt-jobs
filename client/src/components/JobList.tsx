@@ -1,6 +1,8 @@
 import React from "react";
 import { useFormFields } from "../helpers/hooks";
 import Input from "./common/Input";
+import styles from "../styles/components/JobList.module.scss";
+import { Button } from "./common";
 
 const JobList = () => {
     const [fields, handleFieldChange] = useFormFields({
@@ -17,10 +19,10 @@ const JobList = () => {
 
     return (
         <section>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.formGroup}>
                 <Input changeCallback={handleFieldChange} value={fields.location} placeholder="location" id="location" />
                 <Input changeCallback={handleFieldChange} value={fields.category} placeholder="Find your dream job" id="category" />
-                <button disabled={!hasValidInputs()}>Submit</button>
+                <Button label="Search" disabled={!hasValidInputs()} />
             </form>
         </section>
     )

@@ -1,0 +1,13 @@
+.formGroup {
+    text-align: center;
+    input {
+        margin: 0 1rem 1rem 0;
+    }
+}
+@media screen and (max-width: 650px) {
+    .formGroup {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
