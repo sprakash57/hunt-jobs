@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router';
 import { Button, Header, Tag } from '../components/common';
 import styles from '../styles/screens/JobDetail.module.scss';
 import Pin from '../assets/pin.svg';
@@ -5,9 +6,15 @@ import Back from '../assets/back.svg';
 
 
 const JobDetail = () => {
+    const history = useHistory();
+
+    const goBack = () => {
+        history.push("/")
+    }
+
     return (
         <main className={styles.container}>
-            <img src={Back} alt="Go Back" className={styles.container__img} />
+            <img src={Back} alt="Go Back" className={styles.container__img} onClick={goBack} />
             <article className={styles.container__article}>
                 <Header type="h1" label="Job title" className={styles.container__article__h1}>
                     <Button label="Apply" />

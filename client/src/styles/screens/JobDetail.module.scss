@@ -1,5 +1,5 @@
 .container {
-    width: 80%;
+    width: 70%;
     margin: 7rem auto 2rem;
     min-width: 390px;
     background-color: var(--white);
@@ -9,6 +9,7 @@
 .container__img {
     width: 30px;
     margin: 3rem 0 0.5rem 2rem;
+    cursor: pointer;
 }
 .container__article {
     padding: 1rem 5rem 2rem 5rem;
