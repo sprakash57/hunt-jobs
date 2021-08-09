@@ -1,10 +1,10 @@
 import express from 'express';
-import { getAllJobs, initiateQuery } from '../controller/jobs';
-import { fetchJobs } from '../middleware/jobs';
+import { getSearchedResults, initiateQuery } from '../controller/jobs';
+import { fetchInBackground } from '../middleware/jobs';
 
 const router = express.Router();
 
-router.get("/search", initiateQuery, fetchJobs);
-router.get("/results", getAllJobs);
+router.get("/search", initiateQuery, fetchInBackground);
+router.get("/results", getSearchedResults);
 
 export default router;

@@ -6,14 +6,13 @@ export const initiateQuery = (_req: Request, res: Response, next: NextFunction) 
     next();
 }
 
-export const getAllJobs = (_: Request, res: Response) => {
+export const getSearchedResults = (_: Request, res: Response) => {
     try {
         const path = process.cwd() + '/jobs.json';
         if (fs.existsSync(path)) {
             console.info("Data stored.")
             const data = fs.readFileSync(path);
             res.json(JSON.parse(data.toString()));
-            fs.unlinkSync(path);
         } else {
             res.json({ message: "Your results will appear here..." });
         }
