@@ -10,14 +10,14 @@ export const getAllJobs = (_: Request, res: Response) => {
     try {
         const path = process.cwd() + '/jobs.json';
         if (fs.existsSync(path)) {
-            console.log("File exists.")
+            console.info("Data stored.")
             const data = fs.readFileSync(path);
             res.json(JSON.parse(data.toString()));
             fs.unlinkSync(path);
         } else {
-            res.json({ message: "Loading... Your results will appear here" });
+            res.json({ message: "Your results will appear here..." });
         }
     } catch (err) {
-        console.error(err)
+        res.status(500).json({ message: "Internal Server Error", status: 500 })
     }
 }

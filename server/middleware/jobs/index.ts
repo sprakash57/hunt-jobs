@@ -1,9 +1,9 @@
 import axios from "axios";
+import fs from 'fs';
 import { transform } from "camaro";
 import { Request, Response } from "express";
-import { storeFeedtoJson } from "../../helpers";
 
-export const fetchJobs = async (req: Request, _: Response) => {
+export const fetchJobs = async (req: Request, res: Response) => {
     try {
         const { location, query } = req.query;
         const params: string[] = [];
@@ -24,8 +24,11 @@ export const fetchJobs = async (req: Request, _: Response) => {
                 }
             ]
         });
-        storeFeedtoJson(feed.jobs);
+        // Write top 10 records at a time into json file.
+        const latestJobs = feed.jobs.slice(0, 10);
+        const path = process.cwd() + '/jobs.json';
+        fs.writeFileSync(path, JSON.stringify(latestJobs));
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ message: "Internal Server Error", status: 500 });
     }
 }
