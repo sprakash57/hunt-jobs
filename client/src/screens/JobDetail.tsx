@@ -19,7 +19,7 @@ const JobDetail = () => {
                 <Header type="h1" label="Job title" className={styles.container__article__h1}>
                     <Button label="Apply" />
                 </Header>
-                <Header type="h4" label="Company" className={styles.container__article__h4} />
+                <Header type="h4" label="Company" />
                 <section className={styles.card__location}>
                     <span><img src={Pin} alt="Location" /></span>
                     <small>Location</small>
