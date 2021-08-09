@@ -20,6 +20,9 @@
 .container__article__h1 {
     font-size: 2rem;
 }
+.container__article__h4 {
+    margin: 0.5rem 0;
+}
 .card__location {
     display: flex;
     span {
@@ -33,7 +36,7 @@
 .container__date {
     display: block;
     margin: 0.5rem 0;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
 }
 .container__button {
     padding: 1rem 4rem 5rem;
