@@ -5,56 +5,59 @@ import { Button, Input } from "./common";
 import Job from "./Job";
 import { getJobs, queryForJobs } from "../helpers/api";
 import { DELAY, EXPIRE_TIMER } from "../constants";
+import Loader from "./common/Loader";
+import { Link } from "react-router-dom";
 
 const JobList = () => {
-    let currentTimer = 0;
-    const [isRunning, setIsRunning] = useState(false);
-    const [list, setList] = useState([]);
+    let currentTimer = 0; // Track the expire time factor
+    const [isFetching, setIsFetching] = useState(false);
+    const [jobList, setJobList] = useState<Job[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [fields, handleFieldChange] = useFormFields({
         location: "",
-        category: ""
+        query: ""
     });
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         try {
             e.preventDefault();
-            console.log(fields);
-            setList([]);
-            const data = await queryForJobs();
+            setJobList([]);
+            setIsLoading(true);
+            const data = await queryForJobs({ ...fields });
             if (data?.status === 200) {
-                setIsRunning(true);
+                setIsFetching(true);
             }
         } catch (error) {
             console.log(error);
+            setIsLoading(false);
         }
     }
 
-    const hasValidInputs = fields.location || fields.category;
-
     usePolling(async () => {
-        const data = await getJobs();
-        if (++currentTimer === EXPIRE_TIMER) {
-            setIsRunning(false);
-        } else if (data.length) {
-            setList(data);
-            setIsRunning(false);
+        const jobs = await getJobs();
+        // If current timer is greater than 1 min then cancel polling.
+        if (++currentTimer > EXPIRE_TIMER) {
+            setIsFetching(false);
+        } else if (jobs.length) {
+            setJobList(jobs);
+            setIsFetching(false);
+            setIsLoading(false);
         }
-    }, isRunning ? DELAY : null);
+    }, isFetching ? DELAY : null);
 
     return (
         <section className={styles.jobs}>
             <form onSubmit={handleSubmit} className={styles.jobs__form}>
                 <Input changeCallback={handleFieldChange} value={fields.location} placeholder="location" id="location" />
-                <Input changeCallback={handleFieldChange} value={fields.category} placeholder="Find your dream job" id="category" />
-                <Button label="Search" disabled={!hasValidInputs} />
+                <Input changeCallback={handleFieldChange} value={fields.query} placeholder="Find your dream job" id="query" />
+                <Button label="Search" />
             </form>
-            {!!list.length && (<>
-                <Job />
-                <Job />
-                <Job />
-                <Job />
-            </>)}
-
+            {!!jobList.length && jobList.slice(0, 9).map(job => (
+                <Link to={`/${job.id}`} key={job.id}>
+                    <Job job={job} />
+                </Link>
+            ))}
+            {isLoading && !jobList.length && <Loader label="Your results will appear here..." />}
         </section>
     )
 }

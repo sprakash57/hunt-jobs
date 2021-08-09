@@ -43,6 +43,10 @@ body::before {
 * {
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+  color: var(--black);
+}
 @media screen and (max-width: 768px) {
   body::before {
     background-size: cover;

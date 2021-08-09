@@ -5,7 +5,7 @@ import { storeFeedtoJson } from "../../helpers";
 
 export const fetchJobs = async (req: Request, _: Response) => {
     try {
-        const { location, query } = req.body;
+        const { location, query } = req.query;
         const params: string[] = [];
         if (location) params.push(`l=${location}`);
         if (query) params.push(`q=${query}`);
@@ -17,9 +17,8 @@ export const fetchJobs = async (req: Request, _: Response) => {
                 {
                     "id": 'guid',
                     "title": 'title',
-                    "companyName": 'a10:author',
+                    "company": 'a10:author',
                     "publishedDate": 'pubDate',
-                    "typeOfJob": 'category',
                     "description": 'description',
                     "location": 'location'
                 }

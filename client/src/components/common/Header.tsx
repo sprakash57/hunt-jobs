@@ -4,7 +4,7 @@ import styles from '../../styles/components/common/Header.module.scss';
 
 interface Props extends React.LabelHTMLAttributes<HTMLLabelElement> {
     label: string;
-    type?: "h1" | "h2" | "h3" | "h4";
+    type?: "h1" | "h2" | "h3" | "h4" | "h5";
     children?: React.ReactNode;
     parentClass?: string;
 }

@@ -3,7 +3,7 @@
     padding: 1rem 1.5rem 0.5rem;
     border-radius: 2px;
     box-shadow: 1px 2px 5px 2px hsla(0, 0%, 0%, 0.1);
-    width: 384px;
+    width: 420px;
     min-height: 210px;
     margin: 0 1rem 0.8rem;
     summary {
@@ -11,11 +11,11 @@
         word-break: break-all;
     }
 }
-.card__h4 {
-    font-weight: 600;
+.card__h5 {
+    font-weight: 500;
 }
 .card__title {
-    margin: 0.5rem 0 0;
+    font-weight: 600;
 }
 .card__location {
     display: flex;
@@ -30,4 +30,9 @@
 }
 .card__date {
     font-weight: 600;
+}
+@media screen and (max-width: 600px) {
+    .card {
+        width: 390px;
+    }
 }
