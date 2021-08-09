@@ -4,14 +4,16 @@ import styles from "../styles/components/JobList.module.scss";
 import { Button, Input } from "./common";
 import Job from "./Job";
 import { getJobs, queryForJobs } from "../helpers/api";
+import { DELAY, EXPIRE_TIMER } from "../constants";
 
 const JobList = () => {
+    let currentTimer = 0;
     const [isRunning, setIsRunning] = useState(false);
     const [list, setList] = useState([]);
     const [fields, handleFieldChange] = useFormFields({
         location: "",
         category: ""
-    })
+    });
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         try {
@@ -31,11 +33,13 @@ const JobList = () => {
 
     usePolling(async () => {
         const data = await getJobs();
-        if (data.length) {
+        if (++currentTimer === EXPIRE_TIMER) {
+            setIsRunning(false);
+        } else if (data.length) {
             setList(data);
             setIsRunning(false);
         }
-    }, isRunning ? 1000 : null);
+    }, isRunning ? DELAY : null);
 
     return (
         <section className={styles.jobs}>
