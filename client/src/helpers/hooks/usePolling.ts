@@ -1,18 +1,20 @@
 import { useEffect, useRef } from "react";
 
-const usePolling = (callback: VoidFunction, delay: number) => {
-    const previousCallback = useRef<VoidFunction>();
+function usePolling(callback: VoidFunction, delay: number | null) {
+    const previousCallback = useRef<VoidFunction>(() => { });
 
     useEffect(() => {
         previousCallback.current = callback;
     }, [callback])
 
     useEffect(() => {
-        if (delay) {
-            const id = setInterval(() => {
-                previousCallback.current!()
-            }, delay);
+        function tick() {
+            previousCallback.current();
+        }
+        if (delay !== null) {
+            const id = setInterval(tick, delay);
             return () => {
+                console.log(id);
                 clearInterval(id);
             };
         }

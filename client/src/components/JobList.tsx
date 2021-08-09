@@ -1,11 +1,13 @@
-import React from "react";
-import { useFormFields } from "../helpers/hooks";
+import React, { useState } from "react";
+import { useFormFields, usePolling } from "../helpers/hooks";
 import styles from "../styles/components/JobList.module.scss";
 import { Button, Input } from "./common";
 import Job from "./Job";
-import { queryForJobs } from "../helpers/api";
+import { getJobs, queryForJobs } from "../helpers/api";
 
 const JobList = () => {
+    const [isRunning, setIsRunning] = useState(false);
+    const [list, setList] = useState([]);
     const [fields, handleFieldChange] = useFormFields({
         location: "",
         category: ""
@@ -15,14 +17,25 @@ const JobList = () => {
         try {
             e.preventDefault();
             console.log(fields);
+            setList([]);
             const data = await queryForJobs();
-            console.log(data);
+            if (data?.status === 200) {
+                setIsRunning(true);
+            }
         } catch (error) {
             console.log(error);
         }
     }
 
     const hasValidInputs = fields.location || fields.category;
+
+    usePolling(async () => {
+        const data = await getJobs();
+        if (data.length) {
+            setList(data);
+            setIsRunning(false);
+        }
+    }, isRunning ? 1000 : null);
 
     return (
         <section className={styles.jobs}>
@@ -31,10 +44,13 @@ const JobList = () => {
                 <Input changeCallback={handleFieldChange} value={fields.category} placeholder="Find your dream job" id="category" />
                 <Button label="Search" disabled={!hasValidInputs} />
             </form>
-            <Job />
-            <Job />
-            <Job />
-            <Job />
+            {!!list.length && (<>
+                <Job />
+                <Job />
+                <Job />
+                <Job />
+            </>)}
+
         </section>
     )
 }
