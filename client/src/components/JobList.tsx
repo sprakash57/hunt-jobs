@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 
 const JobList = () => {
-    let currentTimer = 0; // Track the expire time factor
+    let currentTimer = 0; // Track the EXPIRE_TIMER
     const [isFetching, setIsFetching] = useState(false);
     const [jobList, setJobList] = useState<Job[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -47,20 +47,22 @@ const JobList = () => {
     }
 
     usePolling(async () => {
-        const jobs = await pollingResults();
-        console.log(jobs);
-        // If current timer is greater than 1 min then cancel polling.
+        // Timeout after the EXPIRE_TIMER. Default is 1 min.
         if (++currentTimer > EXPIRE_TIMER) {
             showErrorMessage("Request timeout. Try a new search.");
-        } else if (jobs.length) {
-            // Get the top 10 results
+        }
+        // Check if there are no jobs call the api again after some DELAY. Default is 2 seconds.
+        if (!jobList.length) {
+            const jobs = await pollingResults();
             setJobList(jobs);
-            localStorage.setItem("jobs", JSON.stringify(jobs)); //Persist data in localstorage
+        } else {
+            // Persist data in localstorage.
+            localStorage.setItem("jobs", JSON.stringify(jobList));
             setIsFetching(false);
             setIsLoading(false);
         }
     }, isFetching ? DELAY : null);
-    // On mount render persisted data.
+    // Render persisted data once component mounts.
     useEffect(() => {
         const jobs = localStorage.getItem("jobs");
         if (jobs) {
@@ -93,7 +95,7 @@ const JobList = () => {
                 </Link>
             ))}
             {isLoading && !jobList.length && <Loader label="Your results will appear here..." />}
-            {error.status && <ErrorPage />}
+            {error.status && <ErrorPage message={error.message} />}
         </section>
     )
 }

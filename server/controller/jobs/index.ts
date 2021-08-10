@@ -10,11 +10,10 @@ export const getSearchedResults = (_: Request, res: Response) => {
     try {
         const path = process.cwd() + '/jobs.json';
         if (fs.existsSync(path)) {
-            console.info("Data stored.")
             const data = fs.readFileSync(path);
             res.json(JSON.parse(data.toString()));
         } else {
-            res.json({ message: "Your results will appear here...", status: 200 });
+            res.json([]);
         }
     } catch (err) {
         res.status(500).json({ message: "Internal Server Error", status: 500 })
