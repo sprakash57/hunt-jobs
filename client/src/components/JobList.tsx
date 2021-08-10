@@ -71,8 +71,20 @@ const JobList = () => {
     return (
         <section className={styles.jobs}>
             <form onSubmit={handleSubmit} className={styles.jobs__form}>
-                <Input changeCallback={handleFieldChange} value={fields.location} placeholder="location" id="location" />
-                <Input changeCallback={handleFieldChange} value={fields.query} placeholder="Find your dream job" id="query" />
+                <Input
+                    changeCallback={handleFieldChange}
+                    value={fields.location}
+                    placeholder="location"
+                    id="location"
+                    aria-describedby="JobLocation"
+                />
+                <Input
+                    changeCallback={handleFieldChange}
+                    value={fields.query}
+                    placeholder="Find your dream job"
+                    id="query"
+                    aria-describedby="technology"
+                />
                 <Button label="Search" />
             </form>
             {!!jobList.length && jobList.map(job => (

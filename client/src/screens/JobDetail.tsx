@@ -6,8 +6,10 @@ import Back from '../assets/back.svg';
 import { formatDate } from '../helpers/utils';
 import ErrorPage from '../components/ErrorPage';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const JobDetail = () => {
+    const [hasApplied, setHasApplied] = useState(false);
     const history = useHistory();
     const id = history.location.pathname.split("/")[1];
     const jobList: Job[] = JSON.parse(localStorage.getItem("jobs")!);
@@ -18,12 +20,16 @@ const JobDetail = () => {
     }
 
     const handleApply = () => {
-        // const updatedJobList = jobList.map(job => {
-
-        // })
+        const updatedJobList = jobList.map(job => {
+            if (id === job.id) return { ...job, applied: true }
+            return job;
+        });
+        localStorage.setItem("jobs", JSON.stringify(updatedJobList));
+        setHasApplied(true);
     }
 
     const renderDetails = () => {
+        // render error page if user provides random id in the url
         if (!jobMatched) {
             return (
                 <article className={styles.container__article}>
@@ -32,12 +38,18 @@ const JobDetail = () => {
                 </article>
             )
         }
-        const { title, description, publishedDate, company, location } = jobMatched;
+        const { title, description, publishedDate, company, location, applied } = jobMatched;
+        const jobApplied = applied || hasApplied;
         return (
             <>
                 <article className={styles.container__article}>
                     <Header type="h1" label={title} className={styles.container__article__h1}>
-                        <Button label="Apply" clickCallback={handleApply} />
+                        <Button
+                            label={jobApplied ? "Applied" : "Apply"}
+                            disabled={jobApplied}
+                            clickCallback={handleApply}
+                            className={jobApplied ? styles.h1__btn : ""}
+                        />
                     </Header>
                     <Header type="h4" label={company} className={styles.container__article__h4} />
                     {!location
@@ -54,7 +66,12 @@ const JobDetail = () => {
                     <SafeSummary label={description} />
                 </article>
                 <section className={styles.container__button}>
-                    <Button label="Apply" />
+                    <Button
+                        label={jobApplied ? "Applied" : "Apply"}
+                        disabled={jobApplied}
+                        clickCallback={handleApply}
+                        className={jobApplied ? styles.h1__btn : ""}
+                    />
                 </section>
             </>
         )
@@ -62,7 +79,15 @@ const JobDetail = () => {
 
     return (
         <main className={styles.container}>
-            <img src={Back} alt="Go Back" className={styles.container__img} onClick={goBack} />
+            <img
+                src={Back}
+                alt="Go Back"
+                className={styles.container__img}
+                onClick={goBack}
+                onKeyDown={goBack}
+                role="button"
+                tabIndex={0}
+            />
             {renderDetails()}
         </main>
     )

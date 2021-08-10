@@ -9,4 +9,5 @@ interface Job {
     description: string;
     location: string;
     publishedDate: string;
+    applied: boolean;
 }
