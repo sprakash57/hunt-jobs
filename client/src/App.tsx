@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import PageNotFound from './components/PageNotFound';
+import PageNotFound from './screens/PageNotFound';
 import Home from './screens/Home';
 import JobDetail from './screens/JobDetail';
 
