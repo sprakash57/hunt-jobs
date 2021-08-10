@@ -3,7 +3,7 @@ import { useFormFields, usePolling } from "../helpers/hooks";
 import styles from "../styles/components/JobList.module.scss";
 import { Button, Input } from "./common";
 import Job from "./Job";
-import { getJobs, queryForJobs } from "../helpers/api";
+import { pollingResults, triggerSearch } from "../helpers/api";
 import { DELAY, EXPIRE_TIMER } from "../constants";
 import Loader from "./common/Loader";
 import { Link } from "react-router-dom";
@@ -37,7 +37,7 @@ const JobList = () => {
             e.preventDefault();
             resetData();
             setIsLoading(true);
-            const data = await queryForJobs({ ...fields });
+            const data = await triggerSearch({ ...fields });
             if (data?.status === 200) {
                 setIsFetching(true);
             }
@@ -47,13 +47,13 @@ const JobList = () => {
     }
 
     usePolling(async () => {
-        const jobs = await getJobs();
+        const jobs = await pollingResults();
+        console.log(jobs);
         // If current timer is greater than 1 min then cancel polling.
         if (++currentTimer > EXPIRE_TIMER) {
             showErrorMessage("Request timeout. Try a new search.");
         } else if (jobs.length) {
             // Get the top 10 results
-            console.log(jobs.length);
             setJobList(jobs);
             localStorage.setItem("jobs", JSON.stringify(jobs)); //Persist data in localstorage
             setIsFetching(false);

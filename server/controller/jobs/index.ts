@@ -14,7 +14,7 @@ export const getSearchedResults = (_: Request, res: Response) => {
             const data = fs.readFileSync(path);
             res.json(JSON.parse(data.toString()));
         } else {
-            res.json({ message: "Your results will appear here..." });
+            res.json({ message: "Your results will appear here...", status: 200 });
         }
     } catch (err) {
         res.status(500).json({ message: "Internal Server Error", status: 500 })

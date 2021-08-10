@@ -11,7 +11,7 @@ export const fetchInBackground = async (req: Request, res: Response) => {
         if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
         const { location, query } = req.query;
         const params: string[] = [];
-        // Check what params are there in query string. construct it as per the format before using it.
+        // Construct url with query params coming from UI.
         if (location) params.push(`l=${location}`);
         if (query) params.push(`q=${query}`);
         // Fetch the RSS feed from stackoverflow
