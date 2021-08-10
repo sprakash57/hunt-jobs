@@ -1,1 +1,1 @@
-export const BASE_URL = "https://stackoverflow.com/jobs/feed";
+export const BASE_URL = "https://stackoverflow.com/jobs/fee";

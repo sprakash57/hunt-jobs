@@ -48,6 +48,7 @@ const JobList = () => {
 
     usePolling(async () => {
         // Timeout after the EXPIRE_TIMER. Default is 1 min.
+        console.log(currentTimer);
         if (++currentTimer > EXPIRE_TIMER) {
             showErrorMessage("Request timeout. Try a new search.");
         }
