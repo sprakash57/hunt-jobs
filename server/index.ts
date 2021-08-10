@@ -5,9 +5,15 @@ import morgan from 'morgan';
 
 const app = express();
 
+// handle CORS issues
 app.use(cors());
+
+// Log incoming requests
 app.use(morgan("tiny"));
+
+// Parse the request body, so that query params can be extracted.
 app.use(express.json());
+
 app.use("/v1/jobs", jobRouter);
 
 app.listen(4000, () => {

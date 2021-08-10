@@ -12,7 +12,6 @@ const PageNotFound = () => {
                     <span role='img' aria-label='resolution'>👉{" "}</span>
                     <Link to='/' className={styles.container__followme}>Follow me</Link>
                 </h4>
-
             </section>
         </main>
     )

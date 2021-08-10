@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 type UseFormFields = [
     fields: SearchFields,
-    cb: (event: React.FormEvent<HTMLInputElement>) => void
+    callback: (event: React.FormEvent<HTMLInputElement>) => void
 ]
 
 const useFormFields = (initialState: SearchFields): UseFormFields => {

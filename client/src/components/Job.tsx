@@ -6,11 +6,12 @@ import { formatDate } from '../helpers/utils';
 
 const Job = ({ job }: { job: Job }) => {
     const { title, description, location, publishedDate, company, applied } = job;
+    // Get first 100 letter with ellipses to construct the summary
     const summaryText = `${description.replace(/<[^>]*>/g, "").slice(0, 100).trim()}...`;
     return (
         <article className={styles.card}>
             <Header type="h3" label={title} className={styles.card__title}>
-                {applied && <Button label="Applied" className={styles.card__title__btn} disabled={applied} />}
+                {applied && <Button label="Applied" disabled={applied} />}
             </Header>
             <Header type="h5" className={styles.card__h5} label={company} />
             <SafeSummary label={summaryText} />

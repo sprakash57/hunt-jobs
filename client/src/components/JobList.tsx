@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useFormFields, usePolling } from "../helpers/hooks";
-import styles from "../styles/components/JobList.module.scss";
-import { Button, Input } from "./common";
-import Job from "./Job";
-import { pollingResults, triggerSearch } from "../helpers/api";
-import { DELAY, EXPIRE_TIMER } from "../constants";
-import Loader from "./common/Loader";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useFormFields, usePolling } from "../helpers/hooks";
+import { pollingResults, triggerSearch } from "../helpers/api";
+import Job from "./Job";
 import ErrorPage from "./ErrorPage";
+import { Button, Input, Loader } from "./common";
+import { DELAY, EXPIRE_TIMER } from "../constants";
+import styles from "../styles/components/JobList.module.scss";
 
 const JobList = () => {
-    let currentTimer = 0; // Track the EXPIRE_TIMER
+    const trackOneMinute = useRef(0); // Track the EXPIRE_TIMER
     const [isFetching, setIsFetching] = useState(false);
     const [jobList, setJobList] = useState<Job[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -48,8 +47,7 @@ const JobList = () => {
 
     usePolling(async () => {
         // Timeout after the EXPIRE_TIMER. Default is 1 min.
-        console.log(currentTimer);
-        if (++currentTimer > EXPIRE_TIMER) {
+        if (++trackOneMinute.current >= EXPIRE_TIMER) {
             showErrorMessage("Request timeout. Try a new search.");
         }
         // Check if there are no jobs call the api again after some DELAY. Default is 2 seconds.
