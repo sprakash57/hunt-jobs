@@ -6,6 +6,10 @@ export const triggerSearch = async ({ query = "", location = "" }: { query?: str
 }
 
 export const pollingResults = async () => {
-    const response = await fetch(`${BASE_URL}/results`);
-    return response.json();
+    try {
+        const response = await fetch(`${BASE_URL}/results`);
+        return response.json();
+    } catch (error) {
+        return Promise.resolve([]);
+    }
 }

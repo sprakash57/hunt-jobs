@@ -94,7 +94,7 @@ const JobList = () => {
                 </Link>
             ))}
             {isLoading && !jobList.length && <Loader label="Your results will appear here..." />}
-            {error.status && <ErrorPage message={error.message} />}
+            {!error.status && <ErrorPage message={error.message} />}
         </section>
     )
 }
