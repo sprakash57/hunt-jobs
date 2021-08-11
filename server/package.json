@@ -1,7 +1,13 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "author": "Sunny Prakash <sunny.prakashgm@gmail.com> (https://suprdev.netlify.app)",
   "description": "Backend server for Jobs-hunt client",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sprakash57/hunt-jobs"
+  },
   "main": "index.ts",
   "scripts": {
     "serve": "nodemon index.ts"
@@ -11,8 +17,6 @@
     "axios",
     "background-jobs"
   ],
-  "author": "Sunny Prakash",
-  "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
     "camaro": "^6.1.0",

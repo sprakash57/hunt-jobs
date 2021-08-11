@@ -1,9 +1,10 @@
 import styles from "../styles/components/ErrorPage.module.scss";
+import { Header } from "./common";
 
 const ErrorPage = ({ message }: { message: string }) => {
     return (
         <section className={styles.container}>
-            <h1 className={styles.container__h1}>{message}</h1>
+            <Header type="h1" label={message} />
         </section>
     )
 }

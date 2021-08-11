@@ -20,6 +20,7 @@ const JobList = () => {
     });
     // Clear persisted data if new query has been submitted.
     const resetData = () => {
+        trackOneMinute.current = 0; // reset timer
         setJobList([]);
         setError({ status: false, message: "" });
         localStorage.removeItem("jobs");
@@ -50,7 +51,7 @@ const JobList = () => {
         if (++trackOneMinute.current >= EXPIRE_TIMER) {
             showErrorMessage("Request timeout. Try a new search.");
         }
-        // Check if there are no jobs call the api again after some DELAY. Default is 2 seconds.
+        // Check if there are no jobs then call the api again after some DELAY. Default is 3 seconds.
         if (!jobList.length) {
             const jobs = await pollingResults();
             setJobList(jobs);
@@ -94,7 +95,7 @@ const JobList = () => {
                 </Link>
             ))}
             {isLoading && !jobList.length && <Loader label="Your results will appear here..." />}
-            {!error.status && <ErrorPage message={error.message} />}
+            {error.status && <ErrorPage message={error.message} />}
         </section>
     )
 }

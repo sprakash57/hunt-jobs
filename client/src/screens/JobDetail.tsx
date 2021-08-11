@@ -5,7 +5,6 @@ import Pin from '../assets/pin.svg';
 import Back from '../assets/back.svg';
 import { formatDate } from '../helpers/utils';
 import ErrorPage from '../components/ErrorPage';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const JobDetail = () => {
@@ -32,9 +31,8 @@ const JobDetail = () => {
         // render error page if user provides random id in the url
         if (!jobMatched) {
             return (
-                <article className={styles.container__article}>
+                <article className={styles.container__nojob}>
                     <ErrorPage message="Job does not exist!!" />
-                    <Link to="/"><u>Go to Homepage</u></Link>
                 </article>
             )
         }
