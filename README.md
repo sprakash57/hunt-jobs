@@ -4,8 +4,8 @@ This helps you to fetch and render Stackoverflow developer jobs feed on UI. Evry
 
 ## Prerequisites
 
-Node.js v14+
-Docker
+Node.js v14.15+
+Docker 19.03.0+
 
 ## Setup
 
@@ -19,3 +19,7 @@ Hunt-jobs comes with dockeer-enabled containers. Just run the command `docker-co
 - Node.js
 - Docker
 
+## Assumptions 
+
+1. Since there aren't any database involved to store the application status. Right now `Apply` a job is just for demonstration purpose.
+2. Stackoverflow RSS feed does not provide job type (Contract, Full time, Part time etc.) as of today. It only provides assitive information whether a job provides `remote` opportunity or not.
