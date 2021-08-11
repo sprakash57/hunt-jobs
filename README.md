@@ -4,7 +4,7 @@ This helps you to fetch and render Stackoverflow developer jobs feed on UI. Evry
 
 ## Prerequisites
 
-Node.js v14.15+
+Node.js v14.15+ \
 Docker 20.10.7+
 
 ## Setup
